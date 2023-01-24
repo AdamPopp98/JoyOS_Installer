@@ -34,6 +34,20 @@ leftwm-theme update
 leftwm-theme install "Ascent"
 leftwm-theme apply "Ascent"
 leftwm-config -n # Generate new config
+
+#moves config files to proper directory
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/alacritty/alacritty.yml ~/.config/alacritty/alacritty.yml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/joshuto/joshuto.toml ~/.config/joshuto/joshuto.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/joshuto/bookmarks.toml ~/.config/joshuto/bookmarks.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/joshuto/mimetype.toml ~/.config/joshuto/mimetype.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/joshuto/keymap.toml ~/.config/joshuto/keymap.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/joshuto/theme.toml ~/.config/joshuto/theme.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/leftwm/themes.toml ~/.config/leftwm/themes.toml
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/leftwm/config.ron ~/.config/leftwm/config.ron
+
+#removes config files after they have been copied over.
+rm -rf ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config
+
 #paru -S lightdm --no-confirm
 #sudo systemctl enable lightdm
 #Installs terminal utilities
