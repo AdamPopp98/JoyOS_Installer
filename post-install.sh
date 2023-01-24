@@ -2,6 +2,7 @@
 
 #Installs basic utilities
 sudo pacman -S xf86-video-fdev xorg xorg-init -y
+cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc /home/adam/.xinitrc
 
 #Sets up Arch User Repository
 sudo pacman -S --needed base-devel - y
@@ -51,8 +52,8 @@ rm -rf ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config
 #paru -S lightdm --no-confirm
 #sudo systemctl enable lightdm
 #Installs terminal utilities
-sudo pacman -S alacritty
-sudo paru -S joshuto
+sudo pacman -S alacritty -y
+sudo paru -S joshuto -y
 
 git clone https://aur.archlinux.org/amp.git
 cd amp
@@ -60,4 +61,4 @@ makepkg -isr
 cd ../
 
 #Installs additional apps
-paru -S brave-bin spotify kmail-git protonmail-bridge
+paru -S brave-bin spotify kmail-git protonmail-bridge -y
