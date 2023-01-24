@@ -3,9 +3,10 @@
 #Installs basic utilities
 sudo pacman -S xf86-video-fdev xorg xorg-init -y
 cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc /home/adam/.xinitrc
+rm ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc
 
 #Sets up Arch User Repository
-sudo pacman -S --needed base-devel - y
+sudo pacman -S --needed base-devel -y
 git clone https://aur.archlinux.org/paru.git
 cd paru
 makepkg -si
