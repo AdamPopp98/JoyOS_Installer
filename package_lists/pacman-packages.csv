@@ -6,4 +6,3 @@
 "leftwm-theme","window manager theme module"
 "picom","compositor"
 "alacritty","terminal emulator"
-"--needed base-devel","needed to access the Arch User Repository"

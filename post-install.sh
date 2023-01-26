@@ -1,29 +1,39 @@
 #!/bin/bash
 
 # Variables
-aur_installer="paru"
 default_theme="Ascent"
-install_script_repo="https://github.com/AdamPopp98/JoyOS_Post_Install_Script"
+#install_script_repo="https://github.com/AdamPopp98/JoyOS_Post_Install_Script"
 
 install_pacman_packages()
 {
+    while IFS=, read -r package_name;
+    do
+        sudo pacman -S --noconfirm $package_name;
+    done < (curl https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_Script/main/package_lists/pacman-packages.csv)
+}
+
+install_aur_packages()
+{
+    sudo pacman -S --needed base-devel -y
+    git clone https://aur.archlinux.org/paru.git
+    cd paru
+    makepkg -si
+    cd ../
     while IFS=, read -r package_name
     do
-        sudo pacman -S --noconfirm $package_name
-    done < 
+        sudo paru -S --noconfirm $package_name;
+    done < (curl https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_Script/main/package_lists/aur-packages.csv)
+    git clone https://aur.archlinux.org/amp.git
+    cd amp
+    makepkg -isr
+    cd ../
 }
 
 #Installs basic utilities
-sudo pacman -S xf86-video-fdev xorg xorg-init -y
+install_pacman_packages
+install_aur_packages
 cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc /home/adam/.xinitrc
 rm ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc
-
-#Sets up Arch User Repository
-sudo pacman -S --needed base-devel -y
-git clone https://aur.archlinux.org/paru.git
-cd paru
-makepkg -si
-cd ../
 
 
 #create directories for config files
@@ -44,7 +54,6 @@ touch ~/.config/leftwm/config.ron
 touch ~/.config/leftwm/themes.toml
 
 #Installs display manager, window manager and compositor
-sudo pacman -S leftwm leftwm-theme picom -y
 leftwm-theme update
 leftwm-theme install "Ascent"
 leftwm-theme apply "Ascent"
@@ -66,13 +75,3 @@ rm -rf ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config
 #paru -S lightdm --no-confirm
 #sudo systemctl enable lightdm
 #Installs terminal utilities
-sudo pacman -S alacritty -y
-sudo paru -S joshuto -y
-
-git clone https://aur.archlinux.org/amp.git
-cd amp
-makepkg -isr
-cd ../
-
-#Installs additional apps
-paru -S brave-bin spotify kmail-git protonmail-bridge -y
