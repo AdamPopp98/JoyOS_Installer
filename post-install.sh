@@ -32,19 +32,21 @@ install_aur_packages()
 {
     sudo pacman -S --needed --noconfirm base-devel
     
-    mkdir /home/build
-    chgrp nobody /home/build
-    chmod g+ws /home/build
-    setfacl -m u::rwx,g::rwx /home/build
-    setfacl -d --set u::rwx,g::rwx,o::- /home/build
+    #mkdir /home/build
+    #chmod g+ws /home/build
+    #setfacl -m u::rwx,g::rwx /home/build
+    #setfacl -d --set u::rwx,g::rwx,o::- /home/build
     
-    cd /home/build
+    #cd /home/build
+    cd ~
     git clone https://aur.archlinux.org/paru.git
     git clone https://aur.archlinux.org/amp.git
     cd paru
-    sudo -u nobody makepkg -si
-    cd ../amp
-    sudo -u nobody makepkg makepkg -isr
+    sudo -u $non_root_username makepkg -si
+    echo "$non_root_pswd"
+    cd ~/amp
+    sudo -u $non_root_username makepkg makepkg -isr
+    echo "$non_root_pswd"
     cd ~/JoyOS_Post_Install_Script
 
     while IFS=, read -r package_name
