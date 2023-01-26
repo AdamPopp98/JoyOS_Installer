@@ -2,7 +2,23 @@
 
 # Variables
 default_theme="Ascent"
+root_pswd=$1
+non_root_username=$2
+non_root_pswd=$3
 #install_script_repo="https://github.com/AdamPopp98/JoyOS_Post_Install_Script"
+
+create_new_user()
+{
+    cd /
+    passwd
+    echo "$root_pswd"
+    echo "$root_pswd"
+    useradd -m $non_root_username
+    passwd $non_root_username
+    echo "$non_root_pswd"
+    echo "$non_root_pswd"
+    cd ~
+}
 
 install_pacman_packages()
 {
@@ -14,7 +30,7 @@ install_pacman_packages()
 
 install_aur_packages()
 {
-    sudo pacman -S --needed --noconfirm base-devel -y
+    sudo pacman -S --needed --noconfirm base-devel
     
     mkdir /home/build
     chgrp nobody /home/build
@@ -38,6 +54,7 @@ install_aur_packages()
 }
 
 #Installs basic utilities
+create_new_user
 install_pacman_packages
 install_aur_packages
 cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc /home/adam/.xinitrc
