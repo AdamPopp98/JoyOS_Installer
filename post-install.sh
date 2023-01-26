@@ -9,24 +9,30 @@ install_pacman_packages()
     while IFS=, read -r package_name;
     do
         sudo pacman -S --noconfirm $package_name;
-    done < (curl https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_Script/main/package_lists/pacman-packages.csv)
+    done < package_lists/pacman-packages.csv
 }
 
 install_aur_packages()
 {
     sudo pacman -S --needed base-devel -y
+    
+    mkdir /home/build
+    chgrp nobody /home/build
+    chmod g+ws /home/build
+    setfacl -m u::rwx,g::rwx /home/build
+    setfacl -d --set u::rwx,g::rwx,o::- /home/build
+    cd build
     git clone https://aur.archlinux.org/paru.git
+    git clone https://aur.archlinux.org/amp.git
     cd paru
-    makepkg -si
-    cd ../
+    sudo -u nobody makepkg -si
+    cd ../amp
+    sudo -u nobody makepkg makepkg -isr
+    cd ~/JoyOS_Post_Install_Script
     while IFS=, read -r package_name
     do
         sudo paru -S --noconfirm $package_name;
-    done < (curl https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_Script/main/package_lists/aur-packages.csv)
-    git clone https://aur.archlinux.org/amp.git
-    cd amp
-    makepkg -isr
-    cd ../
+    done < package_lists/aur-packages.csv
 }
 
 #Installs basic utilities
