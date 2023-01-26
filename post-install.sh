@@ -1,5 +1,18 @@
 #!/bin/bash
 
+# Variables
+aur_installer="paru"
+default_theme="Ascent"
+install_script_repo="https://github.com/AdamPopp98/JoyOS_Post_Install_Script"
+
+install_pacman_packages()
+{
+    while IFS=, read -r package_name
+    do
+        sudo pacman -S --noconfirm $package_name
+    done < 
+}
+
 #Installs basic utilities
 sudo pacman -S xf86-video-fdev xorg xorg-init -y
 cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.xinitrc /home/adam/.xinitrc
