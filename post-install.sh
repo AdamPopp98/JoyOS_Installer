@@ -61,10 +61,10 @@ install_aur_packages()
     sudo pacman -S --needed --noconfirm base-devel
     git clone https://aur.archlinux.org/paru.git
     git clone https://aur.archlinux.org/amp.git
-    cd /home/packages/paru
-    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si
-    cd /home/packages/amp
-    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr
+    (cd /home/packages/paru
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si)
+    (cd /home/packages/amp
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr)
     cd ~
     curl "$installer_repo"/package_lists/aur-packages.csv > ~/aur-packages.csv
     while IFS=, read -r package_name
