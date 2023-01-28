@@ -10,7 +10,7 @@ installer_repo="https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_
 set_makepkg_config()
 {
     mkdir /home/packages
-    chmod 764 /home/packages
+    chmod 775 /home/packages
     curl "$installer_repo"/.config/makepkg.conf > /etc/makepkg.conf
 }
 
