@@ -57,13 +57,13 @@ install_pacman_packages()
 
 install_aur_packages()
 {
-    cd ~
+    cd /home/packages
     sudo pacman -S --needed --noconfirm base-devel
     git clone https://aur.archlinux.org/paru.git
     git clone https://aur.archlinux.org/amp.git
-    cd paru
+    cd /home/packages/paru
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si
-    cd ~/amp
+    cd /home/packages/amp
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr
     cd ~
     curl "$installer_repo"/package_lists/aur-packages.csv > ~/aur-packages.csv
