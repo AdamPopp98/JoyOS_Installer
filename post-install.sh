@@ -69,7 +69,7 @@ install_aur_packages()
     curl "$installer_repo"/package_lists/aur-packages.csv > ~/aur-packages.csv
     while IFS=, read -r package_name
     do
-        sudo paru -S --noconfirm $package_name;
+        echo "$non_root_pswd" | sudo -u $non_root_username paru -S --noconfirm $package_name;
     done < ~/aur-packages.csv
     rm ~/aur-packages.csv
 }
