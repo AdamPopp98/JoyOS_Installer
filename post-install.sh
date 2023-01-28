@@ -21,6 +21,7 @@ create_new_user()
     useradd -m $non_root_username
     (echo "$non_root_pswd"; echo "$non_root_pswd") | passwd $non_root_username
     usermod -aG wheel,audio,video,optical,storage $non_root_username
+    curl "$installer_repo"/.config/sudoers > /etc/sudoers
     cd ~
 }
 
