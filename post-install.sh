@@ -17,9 +17,9 @@ set_makepkg_config()
 create_new_user()
 {
     cd /
-    echo "$root_pswd" | passwd --stdin
+    (echo "$root_pswd"; echo "$root_pswd") | passwd
     useradd -m $non_root_username
-    echo "$non_root_pswd" | passwd $non_root_username --stdin
+    (echo "$non_root_pswd"; echo "$non_root_pswd") | passwd $non_root_username
     cd ~
 }
 
@@ -61,7 +61,7 @@ install_aur_packages()
     while IFS=, read -r package_name
     do
         sudo paru -S --noconfirm $package_name;
-    done < package_lists/aur-packages.csv
+    done < ~/aur-packages.csv
     rm ~/aur-packages.csv
 }
 
