@@ -40,7 +40,7 @@ install_aur_packages()
     cd paru
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si --stdin
     cd ~/amp
-    echo "$non_root_pswd" | sudo -u $non_root_username makepkg makepkg -isr
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr
     cd ~/JoyOS_Post_Install_Script
 
     while IFS=, read -r package_name
