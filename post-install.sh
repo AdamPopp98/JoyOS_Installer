@@ -20,6 +20,7 @@ create_new_user()
     (echo "$root_pswd"; echo "$root_pswd") | passwd
     useradd -m $non_root_username
     (echo "$non_root_pswd"; echo "$non_root_pswd") | passwd $non_root_username
+    usermod -aG wheel,audio,video,optical,storage $non_root_username
     cd ~
 }
 
