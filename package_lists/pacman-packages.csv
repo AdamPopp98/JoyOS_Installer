@@ -5,3 +5,7 @@
 "picom","compositor"
 "alacritty","terminal emulator"
 "figlet","terminal utility for ascci art
+"rust",dependency
+"cmake",dependency
+"libxcb",dependency
+"python",dependency

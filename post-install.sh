@@ -63,8 +63,12 @@ install_aur_packages()
     git clone https://aur.archlinux.org/amp.git
     (cd /home/packages/paru
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si)
+    echo "paru installed"
+    sleep 3
     (cd /home/packages/amp
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr)
+    echo "amp installed"
+    sleep 3
     cd ~
     curl "$installer_repo"/package_lists/aur-packages.csv > ~/aur-packages.csv
     while IFS=, read -r package_name
