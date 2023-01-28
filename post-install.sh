@@ -13,6 +13,9 @@ set_makepkg_config()
     mkdir /home/packages
     chgrp $admin_users /home/packages
     chmod 775 /home/packages
+    mkdir /home/pkglogs
+    chgrp $admin_users /home/pkglogs
+    chmod 555 /home/pkglogs
     curl "$installer_repo"/.config/makepkg.conf > /etc/makepkg.conf
 }
 
