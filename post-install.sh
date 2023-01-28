@@ -10,13 +10,9 @@ non_root_pswd=$3
 create_new_user()
 {
     cd /
-    passwd
-    echo "$root_pswd"
-    echo "$root_pswd"
+    echo "$root_pswd" | passwd --stdin
     useradd -m $non_root_username
-    passwd $non_root_username
-    echo "$non_root_pswd"
-    echo "$non_root_pswd"
+    echo "$non_root_pswd" | passwd $non_root_username --stdin
     cd ~
 }
 
@@ -42,11 +38,9 @@ install_aur_packages()
     git clone https://aur.archlinux.org/paru.git
     git clone https://aur.archlinux.org/amp.git
     cd paru
-    sudo -u $non_root_username makepkg -si
-    echo "$non_root_pswd"
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si --stdin
     cd ~/amp
-    sudo -u $non_root_username makepkg makepkg -isr
-    echo "$non_root_pswd"
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg makepkg -isr
     cd ~/JoyOS_Post_Install_Script
 
     while IFS=, read -r package_name
@@ -98,7 +92,7 @@ cp ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config/leftwm/config.r
 
 #removes config files after they have been copied over.
 rm -rf ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config
-
+history -c
 #paru -S lightdm --no-confirm
 #sudo systemctl enable lightdm
 #Installs terminal utilities
