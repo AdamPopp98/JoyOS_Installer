@@ -46,7 +46,7 @@ install_packages()
 
 install_pacman_packages()
 {
-    pacman -Syu --noconfirm git
+    #pacman -Syu --noconfirm git
     curl "$installer_repo"/package_lists/pacman-packages.csv > ~/pacman-packages.csv
     while IFS=, read -r package_name;
     do
