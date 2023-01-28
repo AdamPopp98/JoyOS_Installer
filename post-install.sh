@@ -10,8 +10,8 @@ installer_repo="https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_
 set_makepkg_config()
 {
     mkdir /home/packages
-    rm /etc/makepkg.conf
-    curl "$installer_repo"/.config/makepkg.conf -o /etc/makepkg.conf
+    chmod 764 /home/packages
+    curl "$installer_repo"/.config/makepkg.conf > /etc/makepkg.conf
 }
 
 create_new_user()
@@ -68,8 +68,8 @@ install_aur_packages()
 }
 
 #Installs basic utilities
-set_makepkg_config
 create_new_user
+set_makepkg_config
 install_packages
 
 #create directories for config files
