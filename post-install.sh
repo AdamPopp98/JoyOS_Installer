@@ -23,19 +23,26 @@ create_new_user()
     cd ~
 }
 
+install_packages()
+{
+    install_pacman_packages
+    install_aur_packages
+}
+
 install_pacman_packages()
 {
     pacman -Syu --noconfirm git
+    curl "$installer_repo"/package_lists/pacman-packages.csv -o ~/pacman-packages.csv
     while IFS=, read -r package_name;
     do
         sudo pacman -S --noconfirm $package_name;
-    done < package_lists/pacman-packages.csv
+    done < ~/pacman-packages.csv
+    rm ~/pacman-packages.csv
 }
 
 install_aur_packages()
 {
     sudo pacman -S --needed --noconfirm base-devel
-    
     #mkdir /home/build
     #chmod g+ws /home/build
     #setfacl -m u::rwx,g::rwx /home/build
@@ -50,18 +57,18 @@ install_aur_packages()
     cd ~/amp
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr
     cd ~
-
+    curl "$installer_repo"/package_lists/aur-packages.csv -o ~/aur-packages.csv
     while IFS=, read -r package_name
     do
         sudo paru -S --noconfirm $package_name;
     done < package_lists/aur-packages.csv
+    rm ~/aur-packages.csv
 }
 
 #Installs basic utilities
 set_makepkg_config
 create_new_user
-install_pacman_packages
-install_aur_packages
+install_packages
 
 #create directories for config files
 mkdir ~/.config
@@ -90,7 +97,7 @@ leftwm-theme apply "$default_theme"
 #clear
 echo "Clearing bash history to remove stored passwords"
 history -c
-echo "installation complete!\n\n"
+echo "installation complete!"
 jp2a --colors ~/.config/JoyOS-Logo.png; figlet -w 87 "Welcome To JoyOS"
 #paru -S lightdm --no-confirm
 #sudo systemctl enable lightdm
