@@ -39,10 +39,10 @@ install_aur_packages()
     git clone https://aur.archlinux.org/paru.git
     git clone https://aur.archlinux.org/amp.git
     cd paru
-    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si --stdin
+    echo "$non_root_pswd" | sudo -u $non_root_username makepkg -si
     cd ~/amp
     echo "$non_root_pswd" | sudo -u $non_root_username makepkg -isr
-    cd ~/JoyOS_Post_Install_Script
+    cd ~
 
     while IFS=, read -r package_name
     do
