@@ -7,6 +7,13 @@ non_root_username=$2
 non_root_pswd=$3
 installer_repo="https://raw.githubusercontent.com/AdamPopp98/JoyOS_Post_Install_Script/main"
 
+set_makepkg_config()
+{
+    mkdir /home/packages
+    rm /etc/makepkg.conf
+    curl "$installer_repo"/.config/makepkg.conf -o /etc/makepkg.conf
+}
+
 create_new_user()
 {
     cd /
@@ -18,7 +25,7 @@ create_new_user()
 
 install_pacman_packages()
 {
-    pacman -Syu git
+    pacman -Syu --noconfirm git
     while IFS=, read -r package_name;
     do
         sudo pacman -S --noconfirm $package_name;
@@ -51,6 +58,7 @@ install_aur_packages()
 }
 
 #Installs basic utilities
+set_makepkg_config
 create_new_user
 install_pacman_packages
 install_aur_packages
@@ -70,18 +78,16 @@ curl "$installer_repo"/.config/joshuto/theme.toml -o ~/.config/joshuto/theme.tom
 curl "$installer_repo"/.config/joshuto/keymap.toml -o ~/.config/joshuto/keymap.toml
 
 mkdir ~/.config/leftwm
-curl "$installer_repo"/.config/leftwm/themes.toml -o ~/.config/leftwm/themes.toml
+#curl "$installer_repo"/.config/leftwm/themes.toml -o ~/.config/leftwm/themes.toml
 curl "$installer_repo"/.config/leftwm/config.ron -o ~/.config/leftwm/config.ron
 
 #Installs display manager, window manager and compositor
 leftwm-theme update
 leftwm-theme install "$default_theme"
 leftwm-theme apply "$default_theme"
-leftwm-config -n # Generate new config
+#leftwm-config -n # Generate new config
 
-#removes config files after they have been copied over.
-rm -rf ~/JoyOS_Post_Install_Script/JoyOS_Post_Install_Script/.config
-clear
+#clear
 echo "Clearing bash history to remove stored passwords"
 history -c
 echo "installation complete!\n\n"
